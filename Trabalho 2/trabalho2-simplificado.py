@@ -3,29 +3,34 @@
 #   Curso: Ciência da Computação
 #   RA: 743529
 
+qnt_inversoes = 0
+
 def dividir(vetor):
     return (vetor[: len(vetor) // 2], vetor[len(vetor) // 2 :])
 
-def merge(esquerda, direta):
+def merge(esquerda, direita):
 
     indice_esquerda = 0
-    indice_direta = 0
+    indice_direita = 0
     vetor_ordenado = []
+    global qnt_inversoes
 
-    while indice_esquerda < len(esquerda) and indice_direta < len(direta):
-        if esquerda[indice_esquerda] <= direta[indice_direta]:
+    while indice_esquerda < len(esquerda) and indice_direita < len(direita):
+
+        if esquerda[indice_esquerda] <= direita[indice_direita]:
             vetor_ordenado.append(esquerda[indice_esquerda])
             indice_esquerda += 1
         else:
-            vetor_ordenado.append(direta[indice_direta])
-            indice_direta += 1
+            vetor_ordenado.append(direita[indice_direita])
+            indice_direita += 1
+            qnt_inversoes += len(esquerda) - indice_esquerda
 
     if indice_esquerda < len(esquerda):
         vetor_ordenado.extend(esquerda[indice_esquerda:])
-    elif indice_direta < len(direta):
-        vetor_ordenado.extend(direta[indice_direta:])
+    elif indice_direita < len(direita):
+        vetor_ordenado.extend(direita[indice_direita:])
 
-    return vetor_ordenado, indice_direta
+    return vetor_ordenado
 
 def contarInversoes_mergeSort(vetor):
     if vetor is None:
@@ -34,13 +39,15 @@ def contarInversoes_mergeSort(vetor):
     if len(vetor) < 2:
         return vetor
 
-    esquerda, direta = dividir(vetor)
+    esquerda, direita = dividir(vetor)
 
-    return merge(mergeSort(esquerda), mergeSort(direta))
+    return merge(contarInversoes_mergeSort(esquerda), contarInversoes_mergeSort(direita))
 
 
-#tamanho_vetor = int(input())
-#vetor = input().split()
-#vetor = [ int(elemento) for elemento in vetor ]
 
-#qnt_inversoes = 0
+tamanho_vetor = int(input())
+vetor = input().split()
+vetor = [ int(elemento) for elemento in vetor ]
+
+contarInversoes_mergeSort(vetor)
+print(qnt_inversoes)

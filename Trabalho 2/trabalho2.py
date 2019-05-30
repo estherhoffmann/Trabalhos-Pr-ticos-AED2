@@ -1,3 +1,4 @@
+
 def intercala(vetor, primeiro, meio, ultimo):
     qnt_inversoes = 0
 

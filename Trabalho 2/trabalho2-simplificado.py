@@ -44,10 +44,11 @@ def contarInversoes_mergeSort(vetor):
     return merge(contarInversoes_mergeSort(esquerda), contarInversoes_mergeSort(direita))
 
 
-
-tamanho_vetor = int(input())
-vetor = input().split()
-vetor = [ int(elemento) for elemento in vetor ]
-
-contarInversoes_mergeSort(vetor)
-print(qnt_inversoes)
+qnt_casos_teste = int(input())
+for i in range(0, qnt_casos_teste):
+    tamanho_vetor = int(input())
+    vetor = input().split()
+    vetor = [ int(elemento) for elemento in vetor ]
+    contarInversoes_mergeSort(vetor)
+    print("Optimal train swapping takes", qnt_inversoes, "swaps.")
+    qnt_inversoes = 0
